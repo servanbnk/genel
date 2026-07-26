@@ -3,207 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ufak Bir İtiraf...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <title>Bugünün Özeti...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #050304;
+            background: radial-gradient(circle at center, #140d14 0%, #050304 100%);
             font-family: 'Montserrat', sans-serif;
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             user-select: none;
         }
 
-        /* --- ALT KATMAN: GİZLİ VE ROMANTİK MESAJ --- */
-        #hidden-layer {
+        /* Arka plan yıldızları için */
+        #particles {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- ÜST BİLGİ YAZISI --- */
+        #intro-text {
+            position: absolute;
+            top: 15%;
             text-align: center;
-            background: radial-gradient(circle at center, #1a0a10 0%, #050304 100%);
-            z-index: 1;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-
-        .hidden-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #ffb3c6;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 25px rgba(255, 179, 198, 0.4);
-        }
-
-        .hidden-text {
+            z-index: 10;
             font-size: 1.2rem;
             font-weight: 300;
-            color: #e6e6e6;
-            line-height: 1.8;
-            max-width: 600px;
+            line-height: 1.6;
+            color: #e0e0e0;
             letter-spacing: 1px;
+            transition: opacity 1s ease;
+            padding: 0 20px;
         }
 
-        .hidden-text span {
-            color: #ffffff;
-            font-weight: 600;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        #intro-text span {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #ffb3c6;
+            letter-spacing: 2px;
+            animation: pulseText 2s infinite;
         }
 
-        /* --- ÜST KATMAN: SİSLİ CANVAS (SİLİNECEK ALAN) --- */
-        #scratch-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* --- IŞIK KÜRELERİ (DÜŞÜNCELER) --- */
+        #orbs-container {
+            position: relative;
             z-index: 10;
-            cursor: crosshair;
-            transition: opacity 1.5s ease; 
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
         }
 
-        /* Yönlendirme Metni */
-        #instruction {
+        .orb-wrapper {
             position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 4px;
-            pointer-events: none;
-            text-align: center;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-            animation: floatText 3s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
         }
 
-        @keyframes floatText {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, -10px); }
+        /* Kürelerin başlangıç konumları */
+        .orb-wrapper:nth-child(1) { transform: translate(-120px, -40px); animation: float1 4s ease-in-out infinite; }
+        .orb-wrapper:nth-child(2) { transform: translate(120px, 30px); animation: float2 5s ease-in-out infinite; }
+        .orb-wrapper:nth-child(3) { transform: translate(0px, 80px); animation: float3 4.5s ease-in-out infinite; }
+
+        .orb {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #ffb3c6);
+            box-shadow: 0 0 20px #ffb3c6, 0 0 40px #ff3366, inset 0 0 20px #ffffff;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .orb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 30px #ffffff, 0 0 50px #ff3366;
+        }
+
+        .orb-text {
+            position: absolute;
+            width: 250px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #ffffff;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.6s ease;
+            pointer-events: none;
+            background: rgba(20, 10, 15, 0.7);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 179, 198, 0.3);
+            backdrop-filter: blur(5px);
+            line-height: 1.5;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Patlama anı için class */
+        .orb-popped .orb {
+            opacity: 0;
+            transform: scale(2);
+            pointer-events: none;
+        }
+
+        .orb-popped .orb-text {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes float1 { 0%, 100% { margin-top: 0; } 50% { margin-top: -20px; } }
+        @keyframes float2 { 0%, 100% { margin-top: 0; } 50% { margin-top: 25px; } }
+        @keyframes float3 { 0%, 100% { margin-top: 0; } 50% { margin-top: -15px; } }
+
+        /* --- FİNAL MESAJI --- */
+        #final-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .final-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #ffb3c6;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 179, 198, 0.5);
+        }
+
+        .final-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e6e6e6;
+            font-weight: 300;
+        }
+
+        .final-desc span {
+            color: #ffffff;
+            font-weight: 500;
+            display: block;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
-            .hidden-title { font-size: 2rem; }
-            .hidden-text { font-size: 1.05rem; }
-            #instruction { font-size: 0.9rem; width: 90%; }
+            .orb-wrapper:nth-child(1) { transform: translate(-80px, -60px); }
+            .orb-wrapper:nth-child(2) { transform: translate(80px, -10px); }
+            .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); }
+            .orb-text { width: 200px; font-size: 0.9rem; }
+            #intro-text { font-size: 1rem; top: 10%; }
+            .final-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- GİZLİ İÇERİK -->
-    <div id="hidden-layer">
-        <div class="hidden-title">Sadece bir itiraf...</div>
-        <div class="hidden-text">
-            Seninle konuşurken zamanın nasıl geçtiğini, sıradan bir günün bile bir anda nasıl güzelleştiğini fark ettim.<br><br>
-            Bugün senden hiçbir şey istemiyorum. Sadece bil istedim; <span>ekranın diğer ucunda, sırf sen yazdın diye sebepsizce gülümseyen biri var.</span>
+    <!-- Arka plan parçacıkları -->
+    <canvas id="particles"></canvas>
+
+    <!-- Üst Bilgi -->
+    <div id="intro-text">
+        Bugün sana pek yazamadım, biliyorum...<br>
+        Ama sessizliğimin içinde kaybolan bazı düşünceler vardı.<br>
+        <span>Onları yakalamak için ışıklara dokun.</span>
+    </div>
+
+    <!-- Işık Küreleri -->
+    <div id="orbs-container">
+        <!-- Düşünce 1 -->
+        <div class="orb-wrapper" onclick="popOrb(this)">
+            <div class="orb"></div>
+            <div class="orb-text">Günün en yoğun anında bile bir saniyeliğine aklıma gelip beni sebepsizce gülümsettin.</div>
+        </div>
+        <!-- Düşünce 2 -->
+        <div class="orb-wrapper" onclick="popOrb(this)">
+            <div class="orb"></div>
+            <div class="orb-text">Telefonun ekranına her bakamadığımda, "Acaba şu an o ne yapıyor?" diye geçirdim içimden.</div>
+        </div>
+        <!-- Düşünce 3 -->
+        <div class="orb-wrapper" onclick="popOrb(this)">
+            <div class="orb"></div>
+            <div class="orb-text">Sana yazamadığım her dakika, akşam olduğunda seninle konuşacağımız o anın hayalini kuruyordum.</div>
         </div>
     </div>
 
-    <!-- SİSLİ YÜZEY -->
-    <div id="instruction">ARADAKİ SİSLERİ DAĞIT...</div>
-    <canvas id="scratch-canvas"></canvas>
+    <!-- Final Mesajı -->
+    <div id="final-message">
+        <div class="final-title">Özetle...</div>
+        <div class="final-desc">
+            Bütün gün sessiz kalmış olabilirim ama zihnim tamamen seninle doluydu.<br>
+            <span>Şimdi bugünün sessizliğini telafi etmeme izin ver. 🤍</span>
+        </div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('scratch-canvas');
+        // --- ARKA PLAN YILDIZ TOZLARI ---
+        const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
-        const instruction = document.getElementById('instruction');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        function fillCanvas() {
-            let gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width);
-            gradient.addColorStop(0, '#1c1518');
-            gradient.addColorStop(1, '#050304');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        let particlesArray = [];
+        for (let i = 0; i < 50; i++) {
+            particlesArray.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5,
+                opacity: Math.random() * 0.5 + 0.1
+            });
         }
 
-        fillCanvas();
-
-        let isDrawing = false;
-        const brushSize = 90; 
-
-        function scratch(x, y) {
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(x, y, brushSize, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (instruction.style.opacity !== '0') {
-                instruction.style.transition = 'opacity 0.5s';
-                instruction.style.opacity = '0';
-            }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+                
+                ctx.fillStyle = `rgba(255, 179, 198, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
         }
-
-        canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            scratch(e.clientX, e.clientY);
-        });
-        canvas.addEventListener('mousemove', (e) => {
-            if (isDrawing) scratch(e.clientX, e.clientY);
-        });
-        canvas.addEventListener('mouseup', () => { isDrawing = false; checkReveal(); });
-        canvas.addEventListener('mouseleave', () => { isDrawing = false; });
-
-        canvas.addEventListener('touchstart', (e) => {
-            isDrawing = true;
-            const touch = e.touches[0];
-            scratch(touch.clientX, touch.clientY);
-        });
-        canvas.addEventListener('touchmove', (e) => {
-            if (isDrawing) {
-                const touch = e.touches[0];
-                scratch(touch.clientX, touch.clientY);
-            }
-        });
-        canvas.addEventListener('touchend', () => { isDrawing = false; checkReveal(); });
-
-        function checkReveal() {
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const pixels = imageData.data;
-            let transparentPixels = 0;
-
-            for (let i = 3; i < pixels.length; i += 4) {
-                if (pixels[i] === 0) {
-                    transparentPixels++;
-                }
-            }
-
-            const totalPixels = canvas.width * canvas.height;
-            const clearPercentage = (transparentPixels / totalPixels) * 100;
-
-            if (clearPercentage > 40) {
-                canvas.style.opacity = '0';
-                setTimeout(() => {
-                    canvas.style.display = 'none';
-                }, 1500);
-            }
-        }
+        animateParticles();
 
         window.addEventListener('resize', () => {
-            if(canvas.style.display !== 'none') {
-               canvas.width = window.innerWidth;
-               canvas.height = window.innerHeight;
-               fillCanvas();
-            }
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
+
+        // --- KÜRE PATLATMA VE FİNAL MANTIĞI ---
+        let poppedCount = 0;
+        const totalOrbs = 3;
+        const introText = document.getElementById('intro-text');
+        const orbsContainer = document.getElementById('orbs-container');
+        const finalMessage = document.getElementById('final-message');
+
+        function popOrb(element) {
+            // Eğer zaten patlatılmışsa işlem yapma
+            if (element.classList.contains('orb-popped')) return;
+
+            // Küreyi patlat (Yazıyı göster)
+            element.classList.add('orb-popped');
+            
+            // Animasyonları durdur ki yazı sabit kalsın okuması kolay olsun
+            element.style.animation = 'none';
+
+            poppedCount++;
+
+            // Hepsi patladıysa final ekranına geç
+            if (poppedCount === totalOrbs) {
+                setTimeout(() => {
+                    // Üst yazıyı ve küreleri gizle
+                    introText.style.opacity = '0';
+                    orbsContainer.style.transition = 'opacity 1s ease';
+                    orbsContainer.style.opacity = '0';
+                    
+                    // Final mesajını göster
+                    setTimeout(() => {
+                        orbsContainer.style.display = 'none';
+                        finalMessage.style.opacity = '1';
+                    }, 1000);
+                }, 3500); // Son yazıyı okuması için 3.5 saniye bekle
+            }
+        }
     </script>
 </body>
 </html>
