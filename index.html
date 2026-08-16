@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bugünün Özeti...</title>
+    <title>Benim Evrenim...</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     
     <style>
@@ -11,7 +11,8 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: radial-gradient(circle at center, #140d14 0%, #050304 100%);
+            /* Derin bir uzay/gece mavisi arka plan */
+            background: radial-gradient(circle at center, #0b1021 0%, #03040a 100%);
             font-family: 'Montserrat', sans-serif;
             color: white;
             display: flex;
@@ -52,17 +53,17 @@
             display: block;
             margin-top: 15px;
             font-size: 0.9rem;
-            color: #ffb3c6;
+            color: #ffd700; /* Altın sarısı vurgu */
             letter-spacing: 2px;
-            animation: pulseText 2s infinite;
+            animation: pulseText 2.5s infinite;
         }
 
         @keyframes pulseText {
-            0%, 100% { opacity: 0.6; }
+            0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
 
-        /* --- IŞIK KÜRELERİ (DÜŞÜNCELER) --- */
+        /* --- IŞIK KÜRELERİ (YILDIZLAR) --- */
         #orbs-container {
             position: relative;
             z-index: 10;
@@ -84,28 +85,29 @@
         }
 
         /* Kürelerin başlangıç konumları */
-        .orb-wrapper:nth-child(1) { transform: translate(-120px, -40px); animation: float1 4s ease-in-out infinite; }
-        .orb-wrapper:nth-child(2) { transform: translate(120px, 30px); animation: float2 5s ease-in-out infinite; }
-        .orb-wrapper:nth-child(3) { transform: translate(0px, 80px); animation: float3 4.5s ease-in-out infinite; }
+        .orb-wrapper:nth-child(1) { transform: translate(-130px, -30px); animation: float1 4s ease-in-out infinite; }
+        .orb-wrapper:nth-child(2) { transform: translate(130px, 40px); animation: float2 5s ease-in-out infinite; }
+        .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); animation: float3 4.5s ease-in-out infinite; }
 
         .orb {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #ffb3c6);
-            box-shadow: 0 0 20px #ffb3c6, 0 0 40px #ff3366, inset 0 0 20px #ffffff;
+            /* Altın/Sıcak beyaz parlama efekti */
+            background: radial-gradient(circle at 30% 30%, #ffffff, #f7d959);
+            box-shadow: 0 0 20px #f7d959, 0 0 40px #e6a817, inset 0 0 15px #ffffff;
             cursor: pointer;
             transition: all 0.4s ease;
         }
 
         .orb:hover {
-            transform: scale(1.15);
-            box-shadow: 0 0 30px #ffffff, 0 0 50px #ff3366;
+            transform: scale(1.2);
+            box-shadow: 0 0 30px #ffffff, 0 0 50px #f7d959;
         }
 
         .orb-text {
             position: absolute;
-            width: 250px;
+            width: 260px;
             text-align: center;
             font-size: 1rem;
             font-weight: 400;
@@ -114,19 +116,19 @@
             transform: scale(0.5);
             transition: all 0.6s ease;
             pointer-events: none;
-            background: rgba(20, 10, 15, 0.7);
+            background: rgba(11, 16, 33, 0.8);
             padding: 15px;
             border-radius: 15px;
-            border: 1px solid rgba(255, 179, 198, 0.3);
+            border: 1px solid rgba(247, 217, 89, 0.3);
             backdrop-filter: blur(5px);
             line-height: 1.5;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         }
 
         /* Patlama anı için class */
         .orb-popped .orb {
             opacity: 0;
-            transform: scale(2);
+            transform: scale(2.5);
             pointer-events: none;
         }
 
@@ -157,9 +159,9 @@
         .final-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
-            color: #ffb3c6;
+            color: #ffd700;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 179, 198, 0.5);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
         .final-desc {
@@ -174,13 +176,15 @@
             font-weight: 500;
             display: block;
             margin-top: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 768px) {
             .orb-wrapper:nth-child(1) { transform: translate(-80px, -60px); }
             .orb-wrapper:nth-child(2) { transform: translate(80px, -10px); }
             .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); }
-            .orb-text { width: 200px; font-size: 0.9rem; }
+            .orb-text { width: 220px; font-size: 0.95rem; }
             #intro-text { font-size: 1rem; top: 10%; }
             .final-title { font-size: 1.8rem; }
         }
@@ -188,41 +192,41 @@
 </head>
 <body>
 
-    <!-- Arka plan parçacıkları -->
+    <!-- Arka plan parçacıkları (Yıldız Tozları) -->
     <canvas id="particles"></canvas>
 
     <!-- Üst Bilgi -->
     <div id="intro-text">
-        Bugün sana pek yazamadım, biliyorum...<br>
-        Ama sessizliğimin içinde kaybolan bazı düşünceler vardı.<br>
-        <span>Onları yakalamak için ışıklara dokun.</span>
+        Bazen kelimeler hissettiklerimi anlatmaya yetmez...<br>
+        Ama gökyüzüne her baktığımda, seni hatırlatan yıldızlar var.<br>
+        <span>Sana ait olanları bulmak için ışıklara dokun.</span>
     </div>
 
     <!-- Işık Küreleri -->
     <div id="orbs-container">
-        <!-- Düşünce 1 -->
+        <!-- Yıldız 1 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
-            <div class="orb-text">Günün en yoğun anında bile bir saniyeliğine aklıma gelip beni sebepsizce gülümsettin.</div>
+            <div class="orb-text">Gülüşün, en karanlık gecelerimde bile yolumu aydınlatan ve içimi ısıtan tek kutup yıldızım oldu.</div>
         </div>
-        <!-- Düşünce 2 -->
+        <!-- Yıldız 2 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
-            <div class="orb-text">Telefonun ekranına her bakamadığımda, "Acaba şu an o ne yapıyor?" diye geçirdim içimden.</div>
+            <div class="orb-text">Milyarlarca ihtimal arasından seninle aynı zaman diliminde kesişmek... Hayatımdaki en güzel mucize sensin.</div>
         </div>
-        <!-- Düşünce 3 -->
+        <!-- Yıldız 3 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
-            <div class="orb-text">Sana yazamadığım her dakika, akşam olduğunda seninle konuşacağımız o anın hayalini kuruyordum.</div>
+            <div class="orb-text">Gözlerine her baktığımda, kaybolmaktan hiç korkmadığım, sadece bana ait olan koca bir evren görüyorum.</div>
         </div>
     </div>
 
     <!-- Final Mesajı -->
     <div id="final-message">
-        <div class="final-title">Özetle...</div>
+        <div class="final-title">Benim Evrenim Sensin...</div>
         <div class="final-desc">
-            Bütün gün sessiz kalmış olabilirim ama zihnim tamamen seninle doluydu.<br>
-            <span>Şimdi bugünün sessizliğini telafi etmeme izin ver. 🤍</span>
+            Zaman ve mekan ne olursa olsun, kalbim her saniye senin yörüngende dönmeye devam edecek.<br>
+            <span>İyi ki varsın, seni çok seviyorum. 🌌🤍</span>
         </div>
     </div>
 
@@ -234,14 +238,14 @@
         canvas.height = window.innerHeight;
 
         let particlesArray = [];
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 70; i++) {
             particlesArray.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-                opacity: Math.random() * 0.5 + 0.1
+                size: Math.random() * 1.5,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3,
+                opacity: Math.random() * 0.6 + 0.1
             });
         }
 
@@ -253,7 +257,8 @@
                 if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
                 
-                ctx.fillStyle = `rgba(255, 179, 198, ${p.opacity})`;
+                // Altın/Sarımtırak yıldız parlaması
+                ctx.fillStyle = `rgba(255, 215, 0, ${p.opacity})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -275,13 +280,10 @@
         const finalMessage = document.getElementById('final-message');
 
         function popOrb(element) {
-            // Eğer zaten patlatılmışsa işlem yapma
             if (element.classList.contains('orb-popped')) return;
 
-            // Küreyi patlat (Yazıyı göster)
+            // Küreyi patlat
             element.classList.add('orb-popped');
-            
-            // Animasyonları durdur ki yazı sabit kalsın okuması kolay olsun
             element.style.animation = 'none';
 
             poppedCount++;
@@ -289,17 +291,15 @@
             // Hepsi patladıysa final ekranına geç
             if (poppedCount === totalOrbs) {
                 setTimeout(() => {
-                    // Üst yazıyı ve küreleri gizle
                     introText.style.opacity = '0';
                     orbsContainer.style.transition = 'opacity 1s ease';
                     orbsContainer.style.opacity = '0';
                     
-                    // Final mesajını göster
                     setTimeout(() => {
                         orbsContainer.style.display = 'none';
                         finalMessage.style.opacity = '1';
                     }, 1000);
-                }, 3500); // Son yazıyı okuması için 3.5 saniye bekle
+                }, 4000); // Metnin okunması için süre biraz uzatıldı
             }
         }
     </script>
