@@ -11,8 +11,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            /* Derin bir uzay/gece mavisi arka plan */
-            background: radial-gradient(circle at center, #0b1021 0%, #03040a 100%);
+            background-color: #03040a; /* Resim gelmeden önceki koyu arka plan */
             font-family: 'Montserrat', sans-serif;
             color: white;
             display: flex;
@@ -21,6 +20,32 @@
             align-items: center;
             height: 100vh;
             user-select: none;
+        }
+
+        /* --- ARKA PLAN RESMİ VE ANİMASYONU --- */
+        #bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('gchat.jpeg'); /* Buraya kendi fotoğrafının adını yazmalısın */
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* Başlangıçta görünmez */
+            z-index: -2;
+            transition: opacity 4s ease-in-out; /* 4 saniyede yavaşça belirme efekti */
+        }
+
+        /* Yazıların okunabilmesi için resmin üzerine hafif koyu bir katman */
+        #bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(11, 16, 33, 0.4) 0%, rgba(3, 4, 10, 0.8) 100%);
+            z-index: -1;
         }
 
         /* Arka plan yıldızları için */
@@ -45,15 +70,23 @@
             line-height: 1.6;
             color: #e0e0e0;
             letter-spacing: 1px;
-            transition: opacity 1s ease;
             padding: 0 20px;
+            /* Yazıların yavaşça gelme animasyonu */
+            opacity: 0; 
+            animation: fadeInText 2s ease forwards;
+            animation-delay: 0.5s; /* Sayfa açıldıktan yarım saniye sonra başlar */
+            transition: opacity 1s ease; /* Sonraki kaybolma efekti için */
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
         }
 
         #intro-text span {
             display: block;
             margin-top: 15px;
             font-size: 0.9rem;
-            color: #ffd700; /* Altın sarısı vurgu */
+            color: #ffd700;
             letter-spacing: 2px;
             animation: pulseText 2.5s infinite;
         }
@@ -74,6 +107,9 @@
             justify-content: center;
             align-items: center;
             margin-top: 50px;
+            opacity: 0;
+            animation: fadeInText 2s ease forwards;
+            animation-delay: 1.5s; /* Küreler yazılardan biraz sonra belirir */
         }
 
         .orb-wrapper {
@@ -84,7 +120,6 @@
             transition: all 0.5s ease;
         }
 
-        /* Kürelerin başlangıç konumları */
         .orb-wrapper:nth-child(1) { transform: translate(-130px, -30px); animation: float1 4s ease-in-out infinite; }
         .orb-wrapper:nth-child(2) { transform: translate(130px, 40px); animation: float2 5s ease-in-out infinite; }
         .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); animation: float3 4.5s ease-in-out infinite; }
@@ -93,7 +128,6 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            /* Altın/Sıcak beyaz parlama efekti */
             background: radial-gradient(circle at 30% 30%, #ffffff, #f7d959);
             box-shadow: 0 0 20px #f7d959, 0 0 40px #e6a817, inset 0 0 15px #ffffff;
             cursor: pointer;
@@ -116,16 +150,15 @@
             transform: scale(0.5);
             transition: all 0.6s ease;
             pointer-events: none;
-            background: rgba(11, 16, 33, 0.8);
+            background: rgba(11, 16, 33, 0.85);
             padding: 15px;
             border-radius: 15px;
-            border: 1px solid rgba(247, 217, 89, 0.3);
+            border: 1px solid rgba(247, 217, 89, 0.4);
             backdrop-filter: blur(5px);
             line-height: 1.5;
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         }
 
-        /* Patlama anı için class */
         .orb-popped .orb {
             opacity: 0;
             transform: scale(2.5);
@@ -161,7 +194,7 @@
             font-size: 2.2rem;
             color: #ffd700;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
 
         .final-desc {
@@ -169,6 +202,10 @@
             line-height: 1.8;
             color: #e6e6e6;
             font-weight: 300;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(3px);
         }
 
         .final-desc span {
@@ -192,36 +229,32 @@
 </head>
 <body>
 
-    <!-- Arka plan parçacıkları (Yıldız Tozları) -->
+    <div id="bg-image"></div>
+    <div id="bg-overlay"></div>
+
     <canvas id="particles"></canvas>
 
-    <!-- Üst Bilgi -->
     <div id="intro-text">
         Bazen kelimeler hissettiklerimi anlatmaya yetmez...<br>
         Ama gökyüzüne her baktığımda, seni hatırlatan yıldızlar var.<br>
         <span>Sana ait olanları bulmak için ışıklara dokun.</span>
     </div>
 
-    <!-- Işık Küreleri -->
     <div id="orbs-container">
-        <!-- Yıldız 1 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
             <div class="orb-text">Gülüşün, en karanlık gecelerimde bile yolumu aydınlatan ve içimi ısıtan tek kutup yıldızım oldu.</div>
         </div>
-        <!-- Yıldız 2 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
             <div class="orb-text">Milyarlarca ihtimal arasından seninle aynı zaman diliminde kesişmek... Hayatımdaki en güzel mucize sensin.</div>
         </div>
-        <!-- Yıldız 3 -->
         <div class="orb-wrapper" onclick="popOrb(this)">
             <div class="orb"></div>
             <div class="orb-text">Gözlerine her baktığımda, kaybolmaktan hiç korkmadığım, sadece bana ait olan koca bir evren görüyorum.</div>
         </div>
     </div>
 
-    <!-- Final Mesajı -->
     <div id="final-message">
         <div class="final-title">Benim Evrenim Sensin...</div>
         <div class="final-desc">
@@ -231,6 +264,14 @@
     </div>
 
     <script>
+        // --- ARKA PLAN RESMİ GECİKMELİ GÖSTERİMİ ---
+        window.addEventListener('load', () => {
+            // Sayfa yüklendikten 2 saniye sonra arka plan resmi yavaşça belirmeye başlar
+            setTimeout(() => {
+                document.getElementById('bg-image').style.opacity = '1';
+            }, 2000); 
+        });
+
         // --- ARKA PLAN YILDIZ TOZLARI ---
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
@@ -257,7 +298,6 @@
                 if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
                 
-                // Altın/Sarımtırak yıldız parlaması
                 ctx.fillStyle = `rgba(255, 215, 0, ${p.opacity})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -282,13 +322,10 @@
         function popOrb(element) {
             if (element.classList.contains('orb-popped')) return;
 
-            // Küreyi patlat
             element.classList.add('orb-popped');
             element.style.animation = 'none';
-
             poppedCount++;
 
-            // Hepsi patladıysa final ekranına geç
             if (poppedCount === totalOrbs) {
                 setTimeout(() => {
                     introText.style.opacity = '0';
@@ -299,7 +336,7 @@
                         orbsContainer.style.display = 'none';
                         finalMessage.style.opacity = '1';
                     }, 1000);
-                }, 4000); // Metnin okunması için süre biraz uzatıldı
+                }, 4000); 
             }
         }
     </script>
