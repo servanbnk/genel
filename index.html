@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benim Evrenim...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <title>Delici bakışlarınn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #03040a; /* Resim gelmeden önceki koyu arka plan */
+            background-color: #050505; /* Resim gelmeden önceki koyu arka plan */
             font-family: 'Montserrat', sans-serif;
             color: white;
             display: flex;
@@ -29,316 +29,87 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('gchat.jpeg'); /* Buraya kendi fotoğrafının adını yazmalısın */
+            background-image: url('gchat.jpeg'); /* Fotoğrafının tam adı */
             background-size: cover;
             background-position: center;
             opacity: 0; /* Başlangıçta görünmez */
             z-index: -2;
-            transition: opacity 4s ease-in-out; /* 4 saniyede yavaşça belirme efekti */
+            transition: opacity 4s ease-in-out; /* 4 saniyede çok yavaşça belirme efekti */
         }
 
-        /* Yazıların okunabilmesi için resmin üzerine hafif koyu bir katman */
+        /* Yazının rahat okunabilmesi için sinematik bir karanlık filtre */
         #bg-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(11, 16, 33, 0.4) 0%, rgba(3, 4, 10, 0.8) 100%);
+            background: rgba(0, 0, 0, 0.65); /* Hafif transparan siyah */
             z-index: -1;
         }
 
-        /* Arka plan yıldızları için */
-        #particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* --- ÜST BİLGİ YAZISI --- */
-        #intro-text {
-            position: absolute;
-            top: 15%;
+        /* --- MERKEZİ İÇERİK --- */
+        .content-container {
             text-align: center;
             z-index: 10;
-            font-size: 1.2rem;
-            font-weight: 300;
-            line-height: 1.6;
-            color: #e0e0e0;
-            letter-spacing: 1px;
-            padding: 0 20px;
-            /* Yazıların yavaşça gelme animasyonu */
-            opacity: 0; 
-            animation: fadeInText 2s ease forwards;
-            animation-delay: 0.5s; /* Sayfa açıldıktan yarım saniye sonra başlar */
-            transition: opacity 1s ease; /* Sonraki kaybolma efekti için */
+            padding: 0 30px;
+            opacity: 0;
+            animation: fadeInContent 2.5s ease-in-out forwards;
+            animation-delay: 0.5s; /* Sayfa açıldıktan yarım saniye sonra metin belirmeye başlar */
         }
 
-        @keyframes fadeInText {
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #ebdcb2; /* Yumuşak, romantik bir krem/şampanya rengi */
+            margin-bottom: 25px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #f0f0f0;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInContent {
             to { opacity: 1; }
         }
 
-        #intro-text span {
-            display: block;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #ffd700;
-            letter-spacing: 2px;
-            animation: pulseText 2.5s infinite;
-        }
-
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* --- IŞIK KÜRELERİ (YILDIZLAR) --- */
-        #orbs-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-            opacity: 0;
-            animation: fadeInText 2s ease forwards;
-            animation-delay: 1.5s; /* Küreler yazılardan biraz sonra belirir */
-        }
-
-        .orb-wrapper {
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.5s ease;
-        }
-
-        .orb-wrapper:nth-child(1) { transform: translate(-130px, -30px); animation: float1 4s ease-in-out infinite; }
-        .orb-wrapper:nth-child(2) { transform: translate(130px, 40px); animation: float2 5s ease-in-out infinite; }
-        .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); animation: float3 4.5s ease-in-out infinite; }
-
-        .orb {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #f7d959);
-            box-shadow: 0 0 20px #f7d959, 0 0 40px #e6a817, inset 0 0 15px #ffffff;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .orb:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 30px #ffffff, 0 0 50px #f7d959;
-        }
-
-        .orb-text {
-            position: absolute;
-            width: 260px;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 400;
-            color: #ffffff;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.6s ease;
-            pointer-events: none;
-            background: rgba(11, 16, 33, 0.85);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid rgba(247, 217, 89, 0.4);
-            backdrop-filter: blur(5px);
-            line-height: 1.5;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-        }
-
-        .orb-popped .orb {
-            opacity: 0;
-            transform: scale(2.5);
-            pointer-events: none;
-        }
-
-        .orb-popped .orb-text {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        @keyframes float1 { 0%, 100% { margin-top: 0; } 50% { margin-top: -20px; } }
-        @keyframes float2 { 0%, 100% { margin-top: 0; } 50% { margin-top: 25px; } }
-        @keyframes float3 { 0%, 100% { margin-top: 0; } 50% { margin-top: -15px; } }
-
-        /* --- FİNAL MESAJI --- */
-        #final-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 20;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 2s ease;
-            width: 90%;
-            max-width: 600px;
-        }
-
-        .final-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-        }
-
-        .final-desc {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #e6e6e6;
-            font-weight: 300;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(3px);
-        }
-
-        .final-desc span {
-            color: #ffffff;
-            font-weight: 500;
-            display: block;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-
         @media (max-width: 768px) {
-            .orb-wrapper:nth-child(1) { transform: translate(-80px, -60px); }
-            .orb-wrapper:nth-child(2) { transform: translate(80px, -10px); }
-            .orb-wrapper:nth-child(3) { transform: translate(0px, 90px); }
-            .orb-text { width: 220px; font-size: 0.95rem; }
-            #intro-text { font-size: 1rem; top: 10%; }
-            .final-title { font-size: 1.8rem; }
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Arka plan resmi ve karanlık filtre -->
     <div id="bg-image"></div>
     <div id="bg-overlay"></div>
 
-    <canvas id="particles"></canvas>
-
-    <div id="intro-text">
-        Bazen kelimeler hissettiklerimi anlatmaya yetmez...<br>
-        Ama gökyüzüne her baktığımda, seni hatırlatan yıldızlar var.<br>
-        <span>Sana ait olanları bulmak için ışıklara dokun.</span>
-    </div>
-
-    <div id="orbs-container">
-        <div class="orb-wrapper" onclick="popOrb(this)">
-            <div class="orb"></div>
-            <div class="orb-text">Gülüşün, en karanlık gecelerimde bile yolumu aydınlatan ve içimi ısıtan tek kutup yıldızım oldu.</div>
-        </div>
-        <div class="orb-wrapper" onclick="popOrb(this)">
-            <div class="orb"></div>
-            <div class="orb-text">Milyarlarca ihtimal arasından seninle aynı zaman diliminde kesişmek... Hayatımdaki en güzel mucize sensin.</div>
-        </div>
-        <div class="orb-wrapper" onclick="popOrb(this)">
-            <div class="orb"></div>
-            <div class="orb-text">Gözlerine her baktığımda, kaybolmaktan hiç korkmadığım, sadece bana ait olan koca bir evren görüyorum.</div>
-        </div>
-    </div>
-
-    <div id="final-message">
-        <div class="final-title">Benim Evrenim Sensin...</div>
-        <div class="final-desc">
-            Zaman ve mekan ne olursa olsun, kalbim her saniye senin yörüngende dönmeye devam edecek.<br>
-            <span>İyi ki varsın, seni çok seviyorum. 🌌🤍</span>
-        </div>
+    <!-- Kısa ve Öz Mesaj Alanı -->
+    <div class="content-container">
+        <h1>Tamamlandık...</h1>
+        <p>
+            Milyarlarca insan, sayısız ihtimal arasından birbirimizi bulduk.<br><br>
+            Seninle eksik parçam yerine oturdu, ruhum ait olduğu yeri buldu.<br>
+            İyi ki Seni buldum güzelim.
+        </p>
     </div>
 
     <script>
         // --- ARKA PLAN RESMİ GECİKMELİ GÖSTERİMİ ---
         window.addEventListener('load', () => {
-            // Sayfa yüklendikten 2 saniye sonra arka plan resmi yavaşça belirmeye başlar
+            // Sayfa yüklendikten 2 saniye sonra arka plan resmi arkadan yavaşça belirmeye başlar
             setTimeout(() => {
                 document.getElementById('bg-image').style.opacity = '1';
             }, 2000); 
         });
-
-        // --- ARKA PLAN YILDIZ TOZLARI ---
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray = [];
-        for (let i = 0; i < 70; i++) {
-            particlesArray.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 1.5,
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.6 + 0.1
-            });
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => {
-                p.x += p.speedX;
-                p.y += p.speedY;
-                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-                
-                ctx.fillStyle = `rgba(255, 215, 0, ${p.opacity})`;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // --- KÜRE PATLATMA VE FİNAL MANTIĞI ---
-        let poppedCount = 0;
-        const totalOrbs = 3;
-        const introText = document.getElementById('intro-text');
-        const orbsContainer = document.getElementById('orbs-container');
-        const finalMessage = document.getElementById('final-message');
-
-        function popOrb(element) {
-            if (element.classList.contains('orb-popped')) return;
-
-            element.classList.add('orb-popped');
-            element.style.animation = 'none';
-            poppedCount++;
-
-            if (poppedCount === totalOrbs) {
-                setTimeout(() => {
-                    introText.style.opacity = '0';
-                    orbsContainer.style.transition = 'opacity 1s ease';
-                    orbsContainer.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        orbsContainer.style.display = 'none';
-                        finalMessage.style.opacity = '1';
-                    }, 1000);
-                }, 4000); 
-            }
-        }
     </script>
 </body>
 </html>
