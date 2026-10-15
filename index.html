@@ -3,151 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Önemli Bir Anlaşma / Sözleşme 📋</title>
+    <title>Sonsuzluğa Yolculuk - Bizim Hikayemiz</title>
     <style>
+        /* --- Temel Sıfırlama ve Fontlar --- */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif; /* Zarif bir serif fontu */
+            background-color: #fdfcf7; /* Çok açık krem tonu */
+            color: #5a4632; /* Derin kahverengi */
+        }
+
+        /* --- Ana Sayfa Arka Planı --- */
+        .main-container {
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333;
+            position: relative;
+            /* Arka plana hafif bir bulanık desen eklenebilir */
+            background-image: radial-gradient(#e4dccb 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        /* --- Fotoğraf Kapsayıcısı (Mükemmel Romantik Çerçeve) --- */
+        .photo-wrapper {
+            position: relative;
+            width: 50vmin; /* Ekranın %50'si kadar genişlik, duyarlı */
             max-width: 450px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        p {
-            margin-bottom: 25px;
-            line-height: 1.6;
-            color: #555;
-            font-size: 16px;
-        }
-
-        .rules {
-            background: #fff3f3;
-            border-left: 4px solid #ff6b6b;
-            padding: 15px;
-            margin-bottom: 25px;
-            text-align: left;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .rules ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .rules li {
-            margin-bottom: 5px;
-            color: #444;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            position: relative;
-        }
-
-        button {
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
+            aspect-ratio: 1/1; /* Fotoğrafın kare oranını koru */
+            border-radius: 50px 10px 50px 10px; /* Sanatsal, köşeli ama yuvarlak bir çerçeve */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 10;
+            transition: transform 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+            /* Kenarlık animasyonu için gerekli */
+            padding: 10px; 
+            background: linear-gradient(135deg, #dfb16f, #e8c997, #dfb16f);
+            background-size: 200% 200%;
+            animation: borderGradient 5s ease infinite;
             cursor: pointer;
-            transition: 0.3s ease;
+        }
+        
+        /* Çerçeve parıltısı animasyonu */
+        @keyframes borderGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        #acceptBtn {
-            background-color: #2ecc71;
+        .photo-wrapper:hover {
+            transform: scale(1.03) rotateY(-5deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-content {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 45px 5px 45px 5px;
+            filter: contrast(1.05) saturate(1.1);
+        }
+
+        /* --- Animasyonlu Parçacıklar (Kalpler ve Yapraklar) --- */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none; /* Tıklamaları engelle */
+        }
+        
+        /* --- Kalp Kutusu Animasyonu (Sağ Alt Köşe) --- */
+        .floating-heart-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #e64e4e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            font-size: 24px;
+            box-shadow: 0 10px 20px rgba(230, 78, 78, 0.5);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.4s ease;
         }
 
-        #acceptBtn:hover {
-            background-color: #27ae60;
-            transform: translateY(-2px);
+        .floating-heart-box:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(230, 78, 78, 0.7);
         }
 
-        #rejectBtn {
-            background-color: #e74c3c;
-            color: white;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        .floating-heart-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #e64e4e;
+            animation: pulseHeart 1.5s infinite;
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* --- Metin Bölümü (Sol Taraf) --- */
+        .text-section {
+            position: absolute;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            max-width: 35%;
+            pointer-events: none;
+        }
+
+        .text-title {
+            font-size: 5vmin;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeInSlideRight 1.5s ease-out forwards 1s;
+        }
+
+        .text-subtitle {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.8vmin;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInSlideRight 1.5s ease-out forwards 1.5s;
+        }
+        
+        @keyframes fadeInSlideRight {
+            0% { opacity: 0; transform: translateX(-50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- Özel Mesaj Kutusu (Tıklayınca Açılır) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 60px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
             position: relative;
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5);
         }
 
-        .success-message {
-            display: none;
-            margin-top: 20px;
-            color: #2ecc71;
-            font-weight: bold;
-            font-size: 18px;
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #e64e4e;
+        }
+
+        .modal-message {
+            font-size: 24px;
+            line-height: 1.8;
+            color: #333;
+            font-family: 'Satisfy', cursive; /* El yazısı fontu */
+        }
+
+        /* --- Responsive Tasarım (Mobil Uyumluluk) --- */
+        @media (max-width: 900px) {
+            .text-section {
+                position: relative;
+                left: 0;
+                top: 20px;
+                transform: none;
+                max-width: 80%;
+                margin: 0 auto;
+                pointer-events: auto;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            
+            .main-container {
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            .photo-wrapper {
+                width: 80vmin;
+                margin-top: 150px;
+            }
+
+            .text-title { font-size: 35px; }
+            .text-subtitle { font-size: 16px; }
+            
+            .floating-heart-box {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
+    <!-- Fontlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@300;400&family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container" id="mainContainer">
-        <h1>✨ Resmi İşbirliği Teklifi ✨</h1>
-        <p>Karşıdaki kişinin gülüşünden fazlasıyla etkilenen sistem yöneticisi, tarafınızdan aşağıdaki şartların kabulünü talep etmektedir:</p>
+    <!-- Ana İçerik -->
+    <div class="main-container">
         
-        <div class="rules">
-            <strong>📋 Sözleşme Şartları:</strong>
-            <ul>
-                <li>Numara tarafımızla paylaşılacaktır.</li>
-                <li>Gün içinde atılan mesajlara makul süre içinde dönüş yapılacaktır.</li>
-                <li><strong>En önemlisi:</strong> Görüntülü aramalara kesinlikle cevap verilecektir! 📱👀</li>
-            </ul>
+        <!-- Parçacık Efektleri -->
+        <div id="particles-js"></div>
+
+        <!-- Sol Metin Bölümü -->
+        <div class="text-section">
+            <h1 class="text-title">Sonsuzluğa Yolculuk</h1>
+            <p class="text-subtitle">Mardin'in tarihi sokaklarından, kalbimizin en derin köşelerine uzanan hikayemiz. Hayatımızın en güzel anılarından biri, şimdi burada, dijital bir sonsuzlukta. Seninle her an yeniden yazılıyor.</p>
         </div>
 
-        <div class="btn-group">
-            <button id="acceptBtn" onclick="acceptOffer()">Şartları Kabul Ediyorum 😊</button>
-            <button id="rejectBtn" onmouseover="moveButton()" onclick="moveButton()">Reddet ❌</button>
+        <!-- Fotoğraf Çerçevesi -->
+        <div class="photo-wrapper" id="mainPhoto" title="Fotoğrafı büyütmek için tıkla">
+            <img src="ask.jpg" alt="Mutlu Çift" class="photo-content">
         </div>
 
-        <div class="success-message" id="successMsg">
-            Harika! Sözleşme imzalandı. Şimdi numarayı gönderme vakti! 🚀🎉
+    </div>
+
+    <!-- Sağ Alt Sabit Kalp -->
+    <div class="floating-heart-box" onclick="openModal()" title="Özel Mesajı Oku">
+        ❤️
+    </div>
+
+    <!-- Tıklayınca Açılan Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <p class="modal-message">
+                "Seninle geçen her saniye, en kıymetli hazine. Mardin Güneşi kadar parlak, bu taş duvarlar kadar köklü sevgimle. İyi ki varsın, iyi ki yollarımız kesişti. Seni seviyorum."
+            </p>
         </div>
     </div>
 
+    <!-- Animasyon Kütüphanesi: particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        function moveButton() {
-            const btn = document.getElementById('rejectBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 100);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 100);
-            btn.style.position = 'fixed';
-            btn.style.left = `${Math.max(20, x)}px`;
-            btn.style.top = `${Math.max(20, y)}px`;
+        // particles.js Ayarları (Düşen Yapraklar ve Kalpler)
+        particlesJS("particles-js", {
+          "particles": {
+            "number": {
+              "value": 80, // Parçacık sayısı
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": ["#e8c997", "#dfb16f", "#e64e4e", "#ffffff"] // Altın, kırmızı ve beyaz tonları
+            },
+            "shape": {
+              "type": ["circle", "edge", "triangle", "polygon"], // Çeşitli şekiller (yaprak veya konfeti gibi)
+              "polygon": {
+                "nb_sides": 5
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 4,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 2,
+                "size_min": 1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": false, // Bağlantı çizgilerini kapat
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 2, // Düşme hızı
+              "direction": "bottom", // Aşağı doğru düşsün
+              "random": true,
+              "straight": false,
+              "out_mode": "out", // Ekrandan çıksın
+              "bounce": false,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "bubble" // Fare üzerine gelince baloncuk efekti
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push" // Tıklayınca yeni parçacıklar ekle
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 400,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 200,
+                "size": 6,
+                "duration": 2,
+                "opacity": 1,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true
+        });
+
+        // Modal İşlevleri
+        const modalOverlay = document.getElementById('modalOverlay');
+        
+        function openModal() {
+            modalOverlay.classList.add('active');
         }
 
-        function acceptOffer() {
-            document.querySelector('.btn-group').style.display = 'none';
-            document.querySelector('.rules').style.display = 'none';
-            document.querySelector('p').style.display = 'none';
-            document.getElementById('successMsg').style.display = 'block';
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+        
+        // Fotoğrafa tıklayınca da modalı açabiliriz
+        document.getElementById('mainPhoto').addEventListener('click', openModal);
+        
+        // Dışarı tıklanınca modalı kapat
+        window.onclick = function(event) {
+            if (event.target == modalOverlay) {
+                closeModal();
+            }
         }
     </script>
 
